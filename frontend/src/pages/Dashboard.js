@@ -4,25 +4,31 @@
  */
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getBalance, getTransactions, getBudgetOverview } from "../services/api";
+import { getBalance, getTransactions, getBudgetOverview, getRecurring, getMonthlyIncome } from "../services/api";
 
 function Dashboard() {
   const [balance, setBalance] = useState(null);
   const [recent, setRecent] = useState([]);
   const [budget, setBudget] = useState(null);
+  const [recurringTotal, setRecurringTotal] = useState(0);
+  const [monthlyIncome, setMonthlyIncome] = useState(0);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function load() {
       try {
-        const [balRes, txRes, budRes] = await Promise.all([
+        const [balRes, txRes, budRes, recRes, incRes] = await Promise.all([
           getBalance(),
           getTransactions(),
           getBudgetOverview(),
+          getRecurring(),
+          getMonthlyIncome(),
         ]);
         setBalance(balRes.data);
         setRecent(txRes.data.slice(0, 5));
         setBudget(budRes.data);
+        setRecurringTotal(recRes.data.reduce((sum, e) => sum + e.monthly_cost, 0));
+        setMonthlyIncome(incRes.data.total_monthly_income);
       } catch (err) {
         console.error("Dashboard load error:", err);
       } finally {
@@ -45,6 +51,24 @@ function Dashboard() {
         <div className="flex gap-6 mt-3 text-sm text-muted-light dark:text-muted-dark">
           <span>Income: ${balance ? balance.total_income.toLocaleString("en-US", { minimumFractionDigits: 2 }) : "0.00"}</span>
           <span>Expenses: ${balance ? balance.total_expenses.toLocaleString("en-US", { minimumFractionDigits: 2 }) : "0.00"}</span>
+        </div>
+      </div>
+
+      {/* Monthly income / recurring / net summary */}
+      <div className="grid grid-cols-3 gap-4">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4 text-center">
+          <p className="text-sm text-muted-light dark:text-muted-dark">Monthly Income</p>
+          <p className="text-2xl font-bold text-green-600 dark:text-green-400">${monthlyIncome.toLocaleString("en-US", { minimumFractionDigits: 2 })}</p>
+        </div>
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4 text-center">
+          <p className="text-sm text-muted-light dark:text-muted-dark">Monthly Recurring</p>
+          <p className="text-2xl font-bold text-red-600 dark:text-red-400">${recurringTotal.toLocaleString("en-US", { minimumFractionDigits: 2 })}</p>
+        </div>
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4 text-center">
+          <p className="text-sm text-muted-light dark:text-muted-dark">Net (Income - Recurring)</p>
+          <p className={`text-2xl font-bold ${monthlyIncome - recurringTotal >= 0 ? "text-green-600 dark:text-green-400" : "text-red-600 dark:text-red-400"}`}>
+            ${(monthlyIncome - recurringTotal).toLocaleString("en-US", { minimumFractionDigits: 2 })}
+          </p>
         </div>
       </div>
 

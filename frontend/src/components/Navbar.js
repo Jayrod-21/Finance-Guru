@@ -10,6 +10,8 @@ const links = [
   { to: "/transactions", label: "Transactions" },
   { to: "/budget", label: "Budget" },
   { to: "/categories", label: "Categories" },
+  { to: "/recurring", label: "Recurring" },
+  { to: "/income", label: "Income" },
 ];
 
 function Navbar({ darkMode, setDarkMode }) {

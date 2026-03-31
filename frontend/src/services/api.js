@@ -25,4 +25,18 @@ export const deleteCategory = (id) => api.delete(`/api/categories/${id}`);
 export const getBudgetOverview = () => api.get("/api/budgets/overview");
 export const getDangerZones = () => api.get("/api/budgets/danger-zones");
 
+/* ── Recurring Expenses ── */
+export const getRecurring = () => api.get("/api/recurring");
+export const getRecurringUpcoming = () => api.get("/api/recurring/upcoming");
+export const createRecurring = (data) => api.post("/api/recurring", data);
+export const updateRecurring = (id, data) => api.put(`/api/recurring/${id}`, data);
+export const deleteRecurring = (id) => api.delete(`/api/recurring/${id}`);
+
+/* ── Income ── */
+export const getIncome = () => api.get("/api/income");
+export const getMonthlyIncome = () => api.get("/api/income/monthly");
+export const createIncome = (data) => api.post("/api/income", data);
+export const updateIncome = (id, data) => api.put(`/api/income/${id}`, data);
+export const deleteIncome = (id) => api.delete(`/api/income/${id}`);
+
 export default api;
