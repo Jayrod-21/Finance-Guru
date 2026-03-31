@@ -108,10 +108,10 @@
 
 **Session Type:** Development (Testing + Polish)
 **Claude Model Used:** Opus 4
-**Status:** Phase 7 — Core Complete
+**Status:** Phase 7 — Complete
 
 #### Work Completed
-- 36 backend unit tests covering all critical business logic:
+- 41 backend tests (36 unit + 5 integration), all passing:
   - Transaction CRUD, balance calculation, filtering
   - Category CRUD, soft delete behavior
   - Budget overview, danger zone detection (warning/critical/exceeded)
@@ -119,8 +119,12 @@
   - Goal progress, feasibility checks
   - Recurring expense monthly cost normalization (weekly/monthly/quarterly/annual)
   - Income frequency normalization (biweekly x26/12, weekly x52/12)
+  - Integration: transaction→budget→analytics flow, balance after edits, notification triggers
 - Test infrastructure: pytest + pytest-asyncio + httpx with in-memory SQLite
+- Development seed script with realistic sample data (8 categories, 100+ transactions, 3 months)
 - Keyboard shortcuts: Ctrl+N/Cmd+N for quick transaction entry
+- Transaction list: inline editing with save/cancel
+- Error boundary component for graceful crash recovery
 - Responsive navbar with hamburger menu for mobile screens
 - Notification banner on Dashboard (polls active alerts, dismissible)
 - Encryption fallback for environments without Fernet (base64 in dev)

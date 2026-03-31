@@ -118,6 +118,19 @@ The AI has access to your full financial data and provides:
 |---------------|---------------------------|
 | Ctrl+N / Cmd+N | Quick add transaction     |
 
+## Development
+
+### Seed Data
+
+Populate the database with realistic sample data for development and demos:
+
+```bash
+cd backend
+python -m app.seed
+```
+
+Creates 8 categories, ~100+ transactions (3 months), recurring expenses, income sources, goals, and debts.
+
 ## Testing
 
 ```bash
@@ -126,7 +139,9 @@ pip install -r requirements.txt
 pytest tests/ -v
 ```
 
-36 tests covering: transactions, categories, budgets, debts, goals, recurring expenses, and income calculations.
+41 tests covering:
+- **Unit tests:** transactions, categories, budgets, debts, goals, recurring expenses, income calculations
+- **Integration tests:** transaction-to-budget flow, transaction-to-analytics flow, income-to-feasibility flow, balance after edit/delete, notification triggers
 
 ## Design Principles
 

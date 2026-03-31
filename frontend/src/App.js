@@ -6,6 +6,7 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import KeyboardShortcuts from "./components/KeyboardShortcuts";
+import ErrorBoundary from "./components/ErrorBoundary";
 import Dashboard from "./pages/Dashboard";
 import TransactionEntry from "./pages/TransactionEntry";
 import TransactionList from "./pages/TransactionList";
@@ -33,6 +34,7 @@ function App() {
   }, [darkMode]);
 
   return (
+    <ErrorBoundary>
     <Router>
       <div className="min-h-screen">
         <KeyboardShortcuts />
@@ -57,6 +59,7 @@ function App() {
         </main>
       </div>
     </Router>
+    </ErrorBoundary>
   );
 }
 
