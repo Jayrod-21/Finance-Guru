@@ -16,6 +16,8 @@ const links = [
   { to: "/debts", label: "Debts" },
   { to: "/analytics", label: "Analytics" },
   { to: "/chat", label: "AI Advisor" },
+  { to: "/history", label: "History" },
+  { to: "/notifications", label: "Alerts" },
   { to: "/settings", label: "Settings" },
 ];
 

@@ -62,6 +62,16 @@ export const getInsights = () => api.get("/api/analytics/insights");
 export const getProjection = () => api.get("/api/analytics/projection");
 export const getBurnRate = () => api.get("/api/analytics/burn-rate");
 
+/* ── Snapshots ── */
+export const getSnapshots = () => api.get("/api/snapshots");
+export const getSnapshot = (year, month) => api.get(`/api/snapshots/${year}/${month}`);
+export const generateSnapshot = (params) => api.post("/api/snapshots/generate", null, { params });
+
+/* ── Notifications ── */
+export const getNotificationPrefs = () => api.get("/api/notifications/preferences");
+export const updateNotificationPref = (data) => api.put("/api/notifications/preferences", data);
+export const getActiveNotifications = () => api.get("/api/notifications/active");
+
 /* ── Chat ── */
 export const sendChat = (message) => api.post("/api/chat", { message });
 export const getChatHistory = () => api.get("/api/chat/history");

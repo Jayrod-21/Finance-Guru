@@ -17,6 +17,8 @@ import Debts from "./pages/Debts";
 import Chat from "./pages/Chat";
 import Settings from "./pages/Settings";
 import Analytics from "./pages/Analytics";
+import History from "./pages/History";
+import Notifications from "./pages/Notifications";
 
 function App() {
   const [darkMode, setDarkMode] = useState(() => {
@@ -47,6 +49,8 @@ function App() {
             <Route path="/chat" element={<Chat />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/analytics" element={<Analytics />} />
+            <Route path="/history" element={<History />} />
+            <Route path="/notifications" element={<Notifications />} />
           </Routes>
         </main>
       </div>
