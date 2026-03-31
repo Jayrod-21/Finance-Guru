@@ -14,8 +14,8 @@ Solo user. One person tracking their personal finances on their local machine. N
 
 ## Current State
 
-**Phase:** Phases 1-6 Complete (Core Features Done)
-**Version:** v0.7
+**Phase:** Phases 1-7 Complete (All Core Features + Testing + Polish)
+**Version:** v1.0
 **Last Updated:** 2026-03-31
 
 ## Architecture Overview

@@ -98,11 +98,34 @@
 - Documentation: financial-guru-context.md, financial-guru-history.md
 
 #### Next Steps
-- Phase 7: UI polish, testing, desktop packaging
-- Add keyboard shortcuts for quick transaction entry
-- Write tests for balance calculations, budget logic, projection math
-- Evaluate Electron vs Tauri for desktop packaging
-- Accessibility pass (ARIA labels, focus management)
+- Desktop packaging (Electron or Tauri) — deferred to separate session
+- Additional frontend component tests
+- Accessibility audit (ARIA labels, focus management, contrast ratios)
+
+---
+
+### 2026-03-31 — Phase 7 Polish, Testing, Documentation (v1.0)
+
+**Session Type:** Development (Testing + Polish)
+**Claude Model Used:** Opus 4
+**Status:** Phase 7 — Core Complete
+
+#### Work Completed
+- 36 backend unit tests covering all critical business logic:
+  - Transaction CRUD, balance calculation, filtering
+  - Category CRUD, soft delete behavior
+  - Budget overview, danger zone detection (warning/critical/exceeded)
+  - Debt payoff projections, interest calculations, edge cases
+  - Goal progress, feasibility checks
+  - Recurring expense monthly cost normalization (weekly/monthly/quarterly/annual)
+  - Income frequency normalization (biweekly x26/12, weekly x52/12)
+- Test infrastructure: pytest + pytest-asyncio + httpx with in-memory SQLite
+- Keyboard shortcuts: Ctrl+N/Cmd+N for quick transaction entry
+- Responsive navbar with hamburger menu for mobile screens
+- Notification banner on Dashboard (polls active alerts, dismissible)
+- Encryption fallback for environments without Fernet (base64 in dev)
+- README.md with setup instructions, API reference, project structure
+- Updated financial-guru-history.md and financial-guru-context.md
 
 ---
 
@@ -127,5 +150,5 @@
 | Push notifications working         | Phase 6     | ✅ Complete  | 2026-03-31     |
 | Monthly snapshots automated        | Phase 6     | ✅ Complete  | 2026-03-31     |
 | Light/dark mode toggle             | Phase 1     | ✅ Complete  | 2026-03-31     |
-| Full testing & polish              | Phase 7     | ⬜ Pending   |                |
+| Full testing & polish              | Phase 7     | ✅ Complete  | 2026-03-31     |
 | Desktop packaging                  | Phase 7     | ⬜ Pending   |                |

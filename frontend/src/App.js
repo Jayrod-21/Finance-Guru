@@ -5,6 +5,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import KeyboardShortcuts from "./components/KeyboardShortcuts";
 import Dashboard from "./pages/Dashboard";
 import TransactionEntry from "./pages/TransactionEntry";
 import TransactionList from "./pages/TransactionList";
@@ -34,8 +35,9 @@ function App() {
   return (
     <Router>
       <div className="min-h-screen">
+        <KeyboardShortcuts />
         <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
-        <main className="max-w-7xl mx-auto px-4 py-6">
+        <main className="max-w-7xl mx-auto px-4 py-6 pb-16">
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/add" element={<TransactionEntry />} />

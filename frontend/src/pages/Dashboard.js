@@ -5,6 +5,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getBalance, getTransactions, getBudgetOverview, getRecurring, getMonthlyIncome, getGoals, getGoalFeasibility } from "../services/api";
+import NotificationBanner from "../components/NotificationBanner";
 
 function Dashboard() {
   const [balance, setBalance] = useState(null);
@@ -48,6 +49,7 @@ function Dashboard() {
 
   return (
     <div className="space-y-6">
+      <NotificationBanner />
       {/* Balance card */}
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
         <h2 className="text-sm font-medium text-muted-light dark:text-muted-dark uppercase tracking-wide">Running Balance</h2>
