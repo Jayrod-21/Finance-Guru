@@ -4,7 +4,7 @@
  */
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getBalance, getTransactions, getBudgetOverview, getRecurring, getMonthlyIncome } from "../services/api";
+import { getBalance, getTransactions, getBudgetOverview, getRecurring, getMonthlyIncome, getGoals, getGoalFeasibility } from "../services/api";
 
 function Dashboard() {
   const [balance, setBalance] = useState(null);
@@ -12,23 +12,29 @@ function Dashboard() {
   const [budget, setBudget] = useState(null);
   const [recurringTotal, setRecurringTotal] = useState(0);
   const [monthlyIncome, setMonthlyIncome] = useState(0);
+  const [goals, setGoals] = useState([]);
+  const [feasibility, setFeasibility] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function load() {
       try {
-        const [balRes, txRes, budRes, recRes, incRes] = await Promise.all([
+        const [balRes, txRes, budRes, recRes, incRes, goalRes, feasRes] = await Promise.all([
           getBalance(),
           getTransactions(),
           getBudgetOverview(),
           getRecurring(),
           getMonthlyIncome(),
+          getGoals(),
+          getGoalFeasibility(),
         ]);
         setBalance(balRes.data);
         setRecent(txRes.data.slice(0, 5));
         setBudget(budRes.data);
         setRecurringTotal(recRes.data.reduce((sum, e) => sum + e.monthly_cost, 0));
         setMonthlyIncome(incRes.data.total_monthly_income);
+        setGoals(goalRes.data);
+        setFeasibility(feasRes.data);
       } catch (err) {
         console.error("Dashboard load error:", err);
       } finally {
@@ -128,6 +134,34 @@ function Dashboard() {
           )}
         </div>
       </div>
+
+      {/* Goal progress & feasibility */}
+      {(goals.length > 0 || (feasibility && !feasibility.is_feasible)) && (
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-sm font-medium text-muted-light dark:text-muted-dark uppercase tracking-wide">Goal Progress</h2>
+            <Link to="/goals" className="text-sm text-primary-600 dark:text-primary-400 hover:underline">View all</Link>
+          </div>
+          {feasibility && !feasibility.is_feasible && (
+            <div className="mb-4 p-3 bg-red-50 dark:bg-red-900/30 rounded-lg text-sm text-red-700 dark:text-red-300">
+              Budget-savings conflict: deficit of ${feasibility.deficit.toFixed(2)}/mo
+            </div>
+          )}
+          <div className="space-y-3">
+            {goals.slice(0, 3).map((g) => (
+              <div key={g.id}>
+                <div className="flex justify-between text-sm mb-1">
+                  <span className="font-medium">{g.name}</span>
+                  <span className="text-muted-light dark:text-muted-dark">{g.progress_percentage.toFixed(0)}%</span>
+                </div>
+                <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                  <div className="h-2 rounded-full bg-primary-500" style={{ width: `${Math.min(g.progress_percentage, 100)}%` }} />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

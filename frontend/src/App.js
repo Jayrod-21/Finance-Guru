@@ -12,6 +12,8 @@ import BudgetView from "./pages/BudgetView";
 import Categories from "./pages/Categories";
 import RecurringExpenses from "./pages/RecurringExpenses";
 import Income from "./pages/Income";
+import Goals from "./pages/Goals";
+import Debts from "./pages/Debts";
 
 function App() {
   const [darkMode, setDarkMode] = useState(() => {
@@ -37,6 +39,8 @@ function App() {
             <Route path="/categories" element={<Categories />} />
             <Route path="/recurring" element={<RecurringExpenses />} />
             <Route path="/income" element={<Income />} />
+            <Route path="/goals" element={<Goals />} />
+            <Route path="/debts" element={<Debts />} />
           </Routes>
         </main>
       </div>

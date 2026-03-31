@@ -12,6 +12,8 @@ const links = [
   { to: "/categories", label: "Categories" },
   { to: "/recurring", label: "Recurring" },
   { to: "/income", label: "Income" },
+  { to: "/goals", label: "Goals" },
+  { to: "/debts", label: "Debts" },
 ];
 
 function Navbar({ darkMode, setDarkMode }) {

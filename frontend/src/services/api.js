@@ -39,4 +39,17 @@ export const createIncome = (data) => api.post("/api/income", data);
 export const updateIncome = (id, data) => api.put(`/api/income/${id}`, data);
 export const deleteIncome = (id) => api.delete(`/api/income/${id}`);
 
+/* ── Goals ── */
+export const getGoals = () => api.get("/api/goals");
+export const createGoal = (data) => api.post("/api/goals", data);
+export const updateGoal = (id, data) => api.put(`/api/goals/${id}`, data);
+export const deleteGoal = (id) => api.delete(`/api/goals/${id}`);
+export const getGoalFeasibility = () => api.get("/api/goals/feasibility");
+
+/* ── Debts ── */
+export const getDebts = () => api.get("/api/debts");
+export const createDebt = (data) => api.post("/api/debts", data);
+export const updateDebt = (id, data) => api.put(`/api/debts/${id}`, data);
+export const deleteDebt = (id) => api.delete(`/api/debts/${id}`);
+
 export default api;
