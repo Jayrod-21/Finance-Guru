@@ -128,7 +128,13 @@
 - Responsive navbar with hamburger menu for mobile screens
 - Notification banner on Dashboard (polls active alerts, dismissible)
 - Encryption fallback for environments without Fernet (base64 in dev)
-- README.md with setup instructions, API reference, project structure
+- Cash flow visualization: income → categories → remaining with percentage breakdown
+- GET /api/analytics/cashflow endpoint for Sankey-style data
+- Date range picker on analytics page for custom analysis windows
+- Amount range filters (min/max) on transaction list
+- GET /api/budgets/aggregate endpoint (total budget, spent, remaining, danger count)
+- CSS utilities: .card, .input-base, .btn-primary, focus-visible rings
+- README.md with setup instructions, API reference, project structure, seed script docs
 - Updated financial-guru-history.md and financial-guru-context.md
 
 ---
