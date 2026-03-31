@@ -14,6 +14,8 @@ import RecurringExpenses from "./pages/RecurringExpenses";
 import Income from "./pages/Income";
 import Goals from "./pages/Goals";
 import Debts from "./pages/Debts";
+import Chat from "./pages/Chat";
+import Settings from "./pages/Settings";
 
 function App() {
   const [darkMode, setDarkMode] = useState(() => {
@@ -41,6 +43,8 @@ function App() {
             <Route path="/income" element={<Income />} />
             <Route path="/goals" element={<Goals />} />
             <Route path="/debts" element={<Debts />} />
+            <Route path="/chat" element={<Chat />} />
+            <Route path="/settings" element={<Settings />} />
           </Routes>
         </main>
       </div>

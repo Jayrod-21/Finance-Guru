@@ -14,6 +14,8 @@ const links = [
   { to: "/income", label: "Income" },
   { to: "/goals", label: "Goals" },
   { to: "/debts", label: "Debts" },
+  { to: "/chat", label: "AI Advisor" },
+  { to: "/settings", label: "Settings" },
 ];
 
 function Navbar({ darkMode, setDarkMode }) {

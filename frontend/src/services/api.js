@@ -52,4 +52,12 @@ export const createDebt = (data) => api.post("/api/debts", data);
 export const updateDebt = (id, data) => api.put(`/api/debts/${id}`, data);
 export const deleteDebt = (id) => api.delete(`/api/debts/${id}`);
 
+/* ── Chat ── */
+export const sendChat = (message) => api.post("/api/chat", { message });
+export const getChatHistory = () => api.get("/api/chat/history");
+
+/* ── Settings ── */
+export const storeApiKey = (api_key) => api.post("/api/settings/apikey", { api_key });
+export const getApiKeyStatus = () => api.get("/api/settings/apikey/status");
+
 export default api;
