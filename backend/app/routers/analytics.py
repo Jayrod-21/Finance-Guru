@@ -294,3 +294,62 @@ async def burn_rate(db: AsyncSession = Depends(get_db)):
         "actual_percentage": round(actual_pct, 1),
         "status": burn_status,
     }
+
+
+@router.get("/cashflow")
+async def cashflow(db: AsyncSession = Depends(get_db)):
+    """
+    Cash flow data for Sankey diagram visualization.
+    Shows income sources → spending categories → remaining balance.
+    """
+    today = date.today()
+    month_start = today.replace(day=1)
+
+    # Income sources with monthly amounts
+    inc_result = await db.execute(select(IncomeSource).where(IncomeSource.is_active == True))
+    sources = inc_result.scalars().all()
+    income_nodes = [
+        {"name": s.name, "amount": round(s.amount * INCOME_MULT.get(s.frequency, 1.0), 2)}
+        for s in sources
+    ]
+    total_income = sum(n["amount"] for n in income_nodes)
+
+    # Spending by category this month
+    cat_result = await db.execute(
+        select(Transaction.category_id, func.sum(Transaction.amount).label("total"))
+        .where(Transaction.type == "expense", Transaction.date >= month_start, Transaction.date <= today)
+        .group_by(Transaction.category_id)
+        .order_by(desc("total"))
+    )
+    rows = cat_result.all()
+
+    cat_ids = [r[0] for r in rows if r[0]]
+    cats = {}
+    if cat_ids:
+        cr = await db.execute(select(Category).where(Category.id.in_(cat_ids)))
+        cats = {c.id: c.name for c in cr.scalars().all()}
+
+    expense_nodes = [
+        {"name": cats.get(r[0], "Uncategorized"), "amount": round(r[1], 2)}
+        for r in rows
+    ]
+    total_spent = sum(n["amount"] for n in expense_nodes)
+    remaining = round(total_income - total_spent, 2)
+
+    # Build Sankey links: income → Total Income → each category → Remaining
+    links = []
+    for inc in income_nodes:
+        links.append({"source": inc["name"], "target": "Total Income", "value": inc["amount"]})
+    for exp in expense_nodes:
+        links.append({"source": "Total Income", "target": exp["name"], "value": exp["amount"]})
+    if remaining > 0:
+        links.append({"source": "Total Income", "target": "Remaining", "value": remaining})
+
+    return {
+        "income_sources": income_nodes,
+        "expense_categories": expense_nodes,
+        "total_income": total_income,
+        "total_spent": total_spent,
+        "remaining": remaining,
+        "links": links,
+    }

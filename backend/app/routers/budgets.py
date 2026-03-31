@@ -107,3 +107,21 @@ async def danger_zones(db: AsyncSession = Depends(get_db)):
     overviews = await _build_category_overviews(db)
     danger = [o for o in overviews if o.status != "ok"]
     return DangerZoneResponse(danger_zones=danger)
+
+
+@router.get("/aggregate")
+async def aggregate(db: AsyncSession = Depends(get_db)):
+    """Total budget, total spent this month, and total remaining across all categories."""
+    overviews = await _build_category_overviews(db)
+
+    total_budget = round(sum(o.budget_amount for o in overviews), 2)
+    total_spent = round(sum(o.spent_this_month for o in overviews), 2)
+    total_remaining = round(total_budget - total_spent, 2)
+
+    return {
+        "total_budget": total_budget,
+        "total_spent": total_spent,
+        "total_remaining": total_remaining,
+        "category_count": len(overviews),
+        "danger_count": sum(1 for o in overviews if o.status != "ok"),
+    }

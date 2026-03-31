@@ -10,7 +10,7 @@ function TransactionList() {
   const [transactions, setTransactions] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [filters, setFilters] = useState({ type: "", category_id: "", date_start: "", date_end: "" });
+  const [filters, setFilters] = useState({ type: "", category_id: "", date_start: "", date_end: "", min_amount: "", max_amount: "" });
   const [editId, setEditId] = useState(null);
   const [editForm, setEditForm] = useState({});
 
@@ -24,6 +24,8 @@ function TransactionList() {
       if (filters.category_id) params.category_id = filters.category_id;
       if (filters.date_start) params.date_start = filters.date_start;
       if (filters.date_end) params.date_end = filters.date_end;
+      if (filters.min_amount) params.min_amount = filters.min_amount;
+      if (filters.max_amount) params.max_amount = filters.max_amount;
 
       const [txRes, catRes] = await Promise.all([getTransactions(params), getCategories()]);
       setTransactions(txRes.data);
@@ -98,8 +100,10 @@ function TransactionList() {
         </select>
         <input type="date" value={filters.date_start} onChange={(e) => setFilters({ ...filters, date_start: e.target.value })} className="p-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-sm" />
         <input type="date" value={filters.date_end} onChange={(e) => setFilters({ ...filters, date_end: e.target.value })} className="p-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-sm" />
-        {(filters.type || filters.category_id || filters.date_start || filters.date_end) && (
-          <button onClick={() => setFilters({ type: "", category_id: "", date_start: "", date_end: "" })} className="text-xs text-red-500 hover:text-red-700 font-medium self-center">
+        <input type="number" value={filters.min_amount} onChange={(e) => setFilters({ ...filters, min_amount: e.target.value })} placeholder="Min $" step="0.01" min="0" className="p-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-sm w-24" />
+        <input type="number" value={filters.max_amount} onChange={(e) => setFilters({ ...filters, max_amount: e.target.value })} placeholder="Max $" step="0.01" min="0" className="p-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-sm w-24" />
+        {(filters.type || filters.category_id || filters.date_start || filters.date_end || filters.min_amount || filters.max_amount) && (
+          <button onClick={() => setFilters({ type: "", category_id: "", date_start: "", date_end: "", min_amount: "", max_amount: "" })} className="text-xs text-red-500 hover:text-red-700 font-medium self-center">
             Clear filters
           </button>
         )}

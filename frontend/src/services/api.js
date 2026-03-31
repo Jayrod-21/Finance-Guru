@@ -61,6 +61,7 @@ export const getMonthlyComparison = () => api.get("/api/analytics/comparisons/mo
 export const getInsights = () => api.get("/api/analytics/insights");
 export const getProjection = () => api.get("/api/analytics/projection");
 export const getBurnRate = () => api.get("/api/analytics/burn-rate");
+export const getCashflow = () => api.get("/api/analytics/cashflow");
 
 /* ── Snapshots ── */
 export const getSnapshots = () => api.get("/api/snapshots");
