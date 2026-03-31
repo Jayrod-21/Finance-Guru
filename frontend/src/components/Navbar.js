@@ -14,6 +14,7 @@ const links = [
   { to: "/income", label: "Income" },
   { to: "/goals", label: "Goals" },
   { to: "/debts", label: "Debts" },
+  { to: "/analytics", label: "Analytics" },
   { to: "/chat", label: "AI Advisor" },
   { to: "/settings", label: "Settings" },
 ];

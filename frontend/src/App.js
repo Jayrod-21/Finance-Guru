@@ -16,6 +16,7 @@ import Goals from "./pages/Goals";
 import Debts from "./pages/Debts";
 import Chat from "./pages/Chat";
 import Settings from "./pages/Settings";
+import Analytics from "./pages/Analytics";
 
 function App() {
   const [darkMode, setDarkMode] = useState(() => {
@@ -45,6 +46,7 @@ function App() {
             <Route path="/debts" element={<Debts />} />
             <Route path="/chat" element={<Chat />} />
             <Route path="/settings" element={<Settings />} />
+            <Route path="/analytics" element={<Analytics />} />
           </Routes>
         </main>
       </div>

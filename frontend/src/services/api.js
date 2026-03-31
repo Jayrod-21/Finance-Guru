@@ -52,6 +52,16 @@ export const createDebt = (data) => api.post("/api/debts", data);
 export const updateDebt = (id, data) => api.put(`/api/debts/${id}`, data);
 export const deleteDebt = (id) => api.delete(`/api/debts/${id}`);
 
+/* ── Analytics ── */
+export const getTopCategories = (params) => api.get("/api/analytics/top-categories", { params });
+export const getFrequency = (params) => api.get("/api/analytics/frequency", { params });
+export const getLargest = (params) => api.get("/api/analytics/largest", { params });
+export const getWeeklyComparison = () => api.get("/api/analytics/comparisons/weekly");
+export const getMonthlyComparison = () => api.get("/api/analytics/comparisons/monthly");
+export const getInsights = () => api.get("/api/analytics/insights");
+export const getProjection = () => api.get("/api/analytics/projection");
+export const getBurnRate = () => api.get("/api/analytics/burn-rate");
+
 /* ── Chat ── */
 export const sendChat = (message) => api.post("/api/chat", { message });
 export const getChatHistory = () => api.get("/api/chat/history");
