@@ -14,8 +14,8 @@ Solo user. One person tracking their personal finances on their local machine. N
 
 ## Current State
 
-**Phase:** Phase 1 Complete (MVP Foundation)
-**Version:** v0.2
+**Phase:** Phases 1-6 Complete (Core Features Done)
+**Version:** v0.7
 **Last Updated:** 2026-03-31
 
 ## Architecture Overview
