@@ -26,3 +26,7 @@ Thumbs.db
 
 # Build artifacts
 frontend/build/
+
+# Secrets / encryption keys (never commit)
+data/.encryption_key
+*.encryption_key

@@ -4,7 +4,7 @@ services:
   backend:
     build: ./backend
     ports:
-      - "8000:8000"
+      - "8005:8000"
     volumes:
       - ./backend:/app
       - ./data:/app/data
@@ -14,12 +14,12 @@ services:
   frontend:
     build: ./frontend
     ports:
-      - "3000:3000"
+      - "3006:3000"
     volumes:
       - ./frontend:/app
       - /app/node_modules
     environment:
       - WATCHPACK_POLLING=true
-      - REACT_APP_API_URL=http://localhost:8000
+      - REACT_APP_API_URL=http://localhost:8005
     depends_on:
       - backend
